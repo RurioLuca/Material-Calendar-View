@@ -12,6 +12,7 @@ import com.applandeo.materialcalendarview.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -29,7 +30,13 @@ public class CalendarActivity extends AppCompatActivity {
         List<EventDay> events = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
         events.add(new EventDay(calendar, R.drawable.sample_icon_1));
+
+        Calendar calendarmio = Calendar.getInstance();
+        calendarmio.setTime(new Date());
+        calendarmio.add(Calendar.DATE,2);
+        events.add(new EventDay(calendarmio, R.drawable.sample_icon_1));
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.add(Calendar.DAY_OF_MONTH, 2);
