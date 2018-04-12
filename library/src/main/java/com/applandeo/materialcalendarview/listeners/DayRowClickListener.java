@@ -62,10 +62,25 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
             case CalendarView.CLASSIC:
                 mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
+                break;
+            case CalendarView.CLASSIC_ONE_DAY_PICKER:
+                selectOneClassicDay(view, day);
+                break;
         }
     }
 
     private void selectOneDay(View view, Calendar day) {
+        SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
+
+        TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
+
+        if (isAnotherDaySelected(previousSelectedDay, day)) {
+            selectDay(dayLabel, day);
+            reverseUnselectedColor(previousSelectedDay);
+        }
+    }
+
+    private void selectOneClassicDay(View view, Calendar day) {
         SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);

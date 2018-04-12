@@ -14,7 +14,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:type="one_day_picker" />
+        app:type="classic_one_day_picker" />
 
     <Button
         android:id="@+id/setDateButton"

@@ -45,7 +45,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         mContext = context;
         mCalendarProperties = calendarProperties;
 
-        if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER) {
+        if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER || mCalendarProperties.getCalendarType() == CalendarView.CLASSIC_ONE_DAY_PICKER) {
             addSelectedDay(new SelectedDay(calendarProperties.getSelectedDate()));
         }
     }

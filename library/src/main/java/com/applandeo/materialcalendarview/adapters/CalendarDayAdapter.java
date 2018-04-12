@@ -3,13 +3,13 @@ package com.applandeo.materialcalendarview.adapters;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.R;
@@ -56,6 +56,9 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
         ImageView dayIcon = (ImageView) view.findViewById(R.id.dayIcon);
+        View divider = (View) view.findViewById(R.id.divider);
+        DayColorsUtils.setDividerColor(divider, mCalendarProperties);
+
 
         Calendar day = new GregorianCalendar();
         day.setTime(getItem(position));
@@ -86,6 +89,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
                     .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
 
             DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
+            DayColorsUtils.setDividerColor(dayLabel, mCalendarProperties);
             return;
         }
 
@@ -116,14 +120,19 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
-        if (mCalendarProperties.getEventDays() == null) {
-            dayIcon.setVisibility(View.GONE);
+
+        if (mCalendarProperties.getEventDays() == null || (mCalendarProperties.getCalendarType() != CalendarView.CLASSIC && mCalendarProperties.getCalendarType() != CalendarView.CLASSIC_ONE_DAY_PICKER))
+        {
+            Log.d("AURON", "mCalendarProperties.getEventDays() == null");
+            dayIcon.setVisibility(View.INVISIBLE);
             return;
+        } else{
+            Log.d("AURON", "AURON NON NULL");
         }
 
         Stream.of(mCalendarProperties.getEventDays()).filter(eventDate ->
                 eventDate.getCalendar().equals(day)).findFirst().executeIfPresent(eventDay -> {
-
+            Log.d("AURON", "dayIcon:" + eventDay.getCalendar().getTime().toString());
             ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
 
             // If a day doesn't belong to current month then image is transparent

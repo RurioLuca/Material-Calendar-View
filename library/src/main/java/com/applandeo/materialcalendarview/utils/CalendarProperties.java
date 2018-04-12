@@ -26,7 +26,7 @@ public class CalendarProperties {
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
             mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
-            mAnotherMonthsDaysLabelsColor;
+            mAnotherMonthsDaysLabelsColor, dividerColor;
 
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
@@ -143,6 +143,17 @@ public class CalendarProperties {
 
     public void setDialogButtonsColor(int dialogButtonsColor) {
         mDialogButtonsColor = dialogButtonsColor;
+    }
+
+    public int getDividerColor() {
+        if (dividerColor == 0) {
+            return ContextCompat.getColor(mContext, android.R.color.white);
+        }
+        return dividerColor;
+    }
+
+    public void setDividerColor(int dividerColor) {
+        this.dividerColor = dividerColor;
     }
 
     public Calendar getMinimumDate() {

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -55,6 +56,7 @@ public class CalendarView extends LinearLayout {
     public static final int ONE_DAY_PICKER = 1;
     public static final int MANY_DAYS_PICKER = 2;
     public static final int RANGE_PICKER = 3;
+    public static final int CLASSIC_ONE_DAY_PICKER = 4;
 
     private static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
@@ -64,8 +66,36 @@ public class CalendarView extends LinearLayout {
     private TextView mCurrentMonthLabel;
     private int mCurrentPage;
     private CalendarViewPager mViewPager;
-
+    private final OnClickListener onNextClickListener =
+            v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+    private final OnClickListener onPreviousClickListener =
+            v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
     private CalendarProperties mCalendarProperties;
+    private final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        /**
+         * This method set calendar header label
+         *
+         * @param position Current ViewPager position
+         * @see ViewPager.OnPageChangeListener
+         */
+        @Override
+        public void onPageSelected(int position) {
+            Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
+            calendar.add(Calendar.MONTH, position);
+
+            if (!isScrollingLimited(calendar, position)) {
+                setHeaderName(calendar, position);
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
+    };
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -121,7 +151,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
-    private void initCalendarProperties(TypedArray typedArray){
+    private void initCalendarProperties(TypedArray typedArray) {
         int headerColor = typedArray.getColor(R.styleable.CalendarView_headerColor, 0);
         mCalendarProperties.setHeaderColor(headerColor);
 
@@ -158,6 +188,9 @@ public class CalendarView extends LinearLayout {
         int calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
         mCalendarProperties.setCalendarType(calendarType);
 
+        int dividerColor = typedArray.getColor(R.styleable.CalendarView_dividerColor, 0);
+        mCalendarProperties.setDividerColor(dividerColor);
+
         // Set picker mode !DEPRECATED!
         if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {
             mCalendarProperties.setCalendarType(ONE_DAY_PICKER);
@@ -192,6 +225,8 @@ public class CalendarView extends LinearLayout {
     private void setCalendarRowLayout() {
         if (mCalendarProperties.getCalendarType() == CLASSIC) {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_day);
+        } else if (mCalendarProperties.getCalendarType() == CLASSIC_ONE_DAY_PICKER) {
+            mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_day_selected);
         } else {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_picker_day);
         }
@@ -230,38 +265,6 @@ public class CalendarView extends LinearLayout {
     public void setOnForwardPageChangeListener(OnCalendarPageChangeListener listener) {
         mCalendarProperties.setOnForwardPageChangeListener(listener);
     }
-
-    private final OnClickListener onNextClickListener =
-            v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-
-    private final OnClickListener onPreviousClickListener =
-            v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
-
-    private final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        }
-
-        /**
-         * This method set calendar header label
-         *
-         * @param position Current ViewPager position
-         * @see ViewPager.OnPageChangeListener
-         */
-        @Override
-        public void onPageSelected(int position) {
-            Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
-            calendar.add(Calendar.MONTH, position);
-
-            if (!isScrollingLimited(calendar, position)) {
-                setHeaderName(calendar, position);
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-        }
-    };
 
     private boolean isScrollingLimited(Calendar calendar, int position) {
         if (DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), calendar)) {
@@ -349,7 +352,8 @@ public class CalendarView extends LinearLayout {
      * @see EventDay
      */
     public void setEvents(List<EventDay> eventDays) {
-        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+        if (mCalendarProperties.getCalendarType() == CLASSIC || mCalendarProperties.getCalendarType() == CLASSIC_ONE_DAY_PICKER) {
+            Log.d("AURON", "setEvents");
             mCalendarProperties.setEventDays(eventDays);
             mCalendarPageAdapter.notifyDataSetChanged();
         }
