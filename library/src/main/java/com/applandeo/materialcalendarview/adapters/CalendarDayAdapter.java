@@ -65,15 +65,27 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         day.setTime(getItem(position));
 
         dayLabel.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));
-        
+
         Log.d("AURON", "giorno: " + dayLabel.getText().toString());
         Log.d("AURON", "getItem(position): " + getItem(position).toString());
 
         // Loading an image of the event
-        if (dayIcon != null) {
+    /*    if (dayIcon != null) {
             loadIcon(dayIcon, day);
         }
-
+*/
+        if (mCalendarProperties.getCalendarType() == CalendarView.CLASSIC_ONE_DAY_PICKER) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            if (isCurrentMonthDay(day))
+                for (EventDay eventDay : mCalendarProperties.getEventDays()) {
+                    Log.d("AURON", "EventDay: " + simpleDateFormat.format(eventDay.getCalendar().getTime()));
+                    if (simpleDateFormat.format(eventDay.getCalendar().getTime()).equals(simpleDateFormat.format(day.getTime()))) {
+                        Log.d("AURON", "EventDay2: " + simpleDateFormat.format(eventDay.getCalendar().getTime()));
+                        dayIcon.setImageResource(eventDay.getImageResource());
+                        break;
+                    }
+                }
+        }
         setLabelColors(dayLabel, day);
 
 
