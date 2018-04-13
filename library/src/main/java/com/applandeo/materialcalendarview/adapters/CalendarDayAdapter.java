@@ -3,6 +3,7 @@ package com.applandeo.materialcalendarview.adapters;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,9 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
         ImageView dayIcon = (ImageView) view.findViewById(R.id.dayIcon);
+
+        Log.d("AURON", "giorno: " + dayLabel.getText().toString());
+        Log.d("AURON", "getItem(position): " + getItem(position));
 
         Calendar day = new GregorianCalendar();
         day.setTime(getItem(position));
