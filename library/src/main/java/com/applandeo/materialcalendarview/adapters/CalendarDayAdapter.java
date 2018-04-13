@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.R;
@@ -56,9 +57,6 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
         ImageView dayIcon = (ImageView) view.findViewById(R.id.dayIcon);
-        View divider = (View) view.findViewById(R.id.divider);
-        DayColorsUtils.setDividerColor(divider, mCalendarProperties);
-
 
         Calendar day = new GregorianCalendar();
         day.setTime(getItem(position));
@@ -89,7 +87,6 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
                     .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
 
             DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
-            DayColorsUtils.setDividerColor(dayLabel, mCalendarProperties);
             return;
         }
 
@@ -121,12 +118,11 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
 
-        if (mCalendarProperties.getEventDays() == null || (mCalendarProperties.getCalendarType() != CalendarView.CLASSIC && mCalendarProperties.getCalendarType() != CalendarView.CLASSIC_ONE_DAY_PICKER))
-        {
+        if (mCalendarProperties.getEventDays() == null || (mCalendarProperties.getCalendarType() != CalendarView.CLASSIC && mCalendarProperties.getCalendarType() != CalendarView.CLASSIC_ONE_DAY_PICKER)) {
             Log.d("AURON", "mCalendarProperties.getEventDays() == null");
-            dayIcon.setVisibility(View.INVISIBLE);
+            dayIcon.setVisibility(View.GONE);
             return;
-        } else{
+        } else {
             Log.d("AURON", "AURON NON NULL");
         }
 

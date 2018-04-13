@@ -4,6 +4,7 @@
     <color name="currentMonthDayColor">#de000000</color>
     <color name="nextMonthDayColor">#1F000000</color>
     <color name="disabledDialogButtonColor">#1F000000</color>
+    <color name="dividerColor">#FFF</color>
 
     <color name="itemHighlightColor">#1F000000</color>
 

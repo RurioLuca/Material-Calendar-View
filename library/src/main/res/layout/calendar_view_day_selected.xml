@@ -17,16 +17,15 @@
         android:id="@+id/dayIcon"
         android:layout_width="18dp"
         android:layout_height="18dp"
-
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:scaleType="fitXY" />
+        android:scaleType="centerInside" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/nextMonthDayColor" />
+        android:layout_height="1dp"
+        android:background="@color/dividerColor" />
 
 </LinearLayout>
 

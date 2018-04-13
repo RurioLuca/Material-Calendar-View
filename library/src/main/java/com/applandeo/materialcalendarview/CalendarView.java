@@ -188,8 +188,6 @@ public class CalendarView extends LinearLayout {
         int calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
         mCalendarProperties.setCalendarType(calendarType);
 
-        int dividerColor = typedArray.getColor(R.styleable.CalendarView_dividerColor, 0);
-        mCalendarProperties.setDividerColor(dividerColor);
 
         // Set picker mode !DEPRECATED!
         if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {

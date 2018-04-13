@@ -75,11 +75,4 @@ public class DayColorsUtils {
 
 
 
-
-    public static void setDividerColor(View divider, CalendarProperties calendarProperties) {
-
-        divider.getBackground().setColorFilter(calendarProperties.getDividerColor(),
-                android.graphics.PorterDuff.Mode.MULTIPLY);
-    }
-
 }
