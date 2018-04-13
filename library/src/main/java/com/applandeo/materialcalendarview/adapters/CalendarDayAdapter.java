@@ -61,7 +61,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         ImageView dayIcon = (ImageView) view.findViewById(R.id.dayIcon);
 
         Log.d("AURON", "giorno: " + dayLabel.getText().toString());
-        Log.d("AURON", "getItem(position): " + getItem(position));
+        Log.d("AURON", "getItem(position): " + getItem(position).toString());
 
         Calendar day = new GregorianCalendar();
         day.setTime(getItem(position));
