@@ -24,8 +24,9 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/dividerColor" />
+        android:layout_height="@dimen/mc_height"
+        android:layout_marginTop="@dimen/mc_divider_margin_top"
+        android:background="@color/mc_divider_color" />
 
 </LinearLayout>
 

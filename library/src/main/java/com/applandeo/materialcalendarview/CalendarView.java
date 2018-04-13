@@ -231,8 +231,10 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initUiElements() {
+
         // This line subtracts a half of all calendar months to set calendar
         // in the correct position (in the middle)
+
         mCalendarProperties.getCurrentDate().set(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
 
         ImageButton forwardButton = (ImageButton) findViewById(R.id.forwardButton);
@@ -244,6 +246,7 @@ public class CalendarView extends LinearLayout {
         mCurrentMonthLabel = (TextView) findViewById(R.id.currentDateLabel);
 
         mViewPager = (CalendarViewPager) findViewById(R.id.calendarViewPager);
+
     }
 
     private void initCalendar() {
