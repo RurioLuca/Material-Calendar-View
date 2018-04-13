@@ -60,11 +60,14 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
         ImageView dayIcon = (ImageView) view.findViewById(R.id.dayIcon);
 
-        Log.d("AURON", "giorno: " + dayLabel.getText().toString());
-        Log.d("AURON", "getItem(position): " + getItem(position).toString());
 
         Calendar day = new GregorianCalendar();
         day.setTime(getItem(position));
+
+        dayLabel.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));
+        
+        Log.d("AURON", "giorno: " + dayLabel.getText().toString());
+        Log.d("AURON", "getItem(position): " + getItem(position).toString());
 
         // Loading an image of the event
         if (dayIcon != null) {
@@ -73,7 +76,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         setLabelColors(dayLabel, day);
 
-        dayLabel.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));
+
         return view;
     }
 
