@@ -3,7 +3,6 @@ package com.applandeo.materialcalendarview.adapters;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
@@ -20,6 +20,7 @@ import com.applandeo.materialcalendarview.utils.DayColorsUtils;
 import com.applandeo.materialcalendarview.utils.ImageUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -118,6 +119,12 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
 
+
+        if (mCalendarProperties.getCalendarType() == CalendarView.MANY_DAYS_PICKER || mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER || mCalendarProperties.getCalendarType() == CalendarView.RANGE_PICKER) {
+            dayIcon.setVisibility(View.GONE);
+            return;
+        }
+       /*
         if (mCalendarProperties.getEventDays() == null || (mCalendarProperties.getCalendarType() != CalendarView.CLASSIC && mCalendarProperties.getCalendarType() != CalendarView.CLASSIC_ONE_DAY_PICKER)) {
             Log.d("AURON", "mCalendarProperties.getEventDays() == null");
             dayIcon.setVisibility(View.GONE);
@@ -125,17 +132,29 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         } else {
             Log.d("AURON", "AURON NON NULL");
         }
+        */
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        if (isCurrentMonthDay(day))
+            for (EventDay eventDay : mCalendarProperties.getEventDays()) {
+                if (simpleDateFormat.format(eventDay.getCalendar().getTime()).equals(simpleDateFormat.format(day.getTime()))) {
+                    ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
+                    break;
+                }
+            }
+/*
         Stream.of(mCalendarProperties.getEventDays()).filter(eventDate ->
                 eventDate.getCalendar().equals(day)).findFirst().executeIfPresent(eventDay -> {
             Log.d("AURON", "dayIcon:" + eventDay.getCalendar().getTime().toString());
             ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
 
-            // If a day doesn't belong to current month then image is transparent
-            if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
-                dayIcon.setAlpha(0.12f);
-            }
+        // If a day doesn't belong to current month then image is transparent
+        if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
+            dayIcon.setAlpha(0.12f);
+        }
 
-        });
+    });
+
+*/
     }
 }
