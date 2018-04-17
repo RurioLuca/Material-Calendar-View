@@ -354,7 +354,6 @@ public class CalendarView extends LinearLayout {
      */
     public void setEvents(List<EventDay> eventDays) {
         if (mCalendarProperties.getCalendarType() == CLASSIC || mCalendarProperties.getCalendarType() == CLASSIC_ONE_DAY_PICKER) {
-            Log.d("AURON", "setEvents");
             mCalendarProperties.setEventDays(eventDays);
             mCalendarPageAdapter.notifyDataSetChanged();
         }

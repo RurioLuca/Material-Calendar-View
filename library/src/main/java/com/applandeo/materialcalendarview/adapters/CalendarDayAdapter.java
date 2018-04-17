@@ -66,8 +66,6 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         dayLabel.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));
 
-        Log.d("AURON", "giorno: " + dayLabel.getText().toString());
-        Log.d("AURON", "getItem(position): " + getItem(position).toString());
 
         // Loading an image of the event
     /*    if (dayIcon != null) {
@@ -78,9 +76,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
             if (isCurrentMonthDay(day))
                 for (EventDay eventDay : mCalendarProperties.getEventDays()) {
-                    Log.d("AURON", "EventDay: " + simpleDateFormat.format(eventDay.getCalendar().getTime()));
                     if (simpleDateFormat.format(eventDay.getCalendar().getTime()).equals(simpleDateFormat.format(day.getTime()))) {
-                        Log.d("AURON", "EventDay2: " + simpleDateFormat.format(eventDay.getCalendar().getTime()));
                         dayIcon.setImageResource(eventDay.getImageResource());
                         break;
                     }
@@ -153,6 +149,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         }
         */
 
+       /*
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         if (isCurrentMonthDay(day))
             for (EventDay eventDay : mCalendarProperties.getEventDays()) {
@@ -160,20 +157,20 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
                     ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
                     break;
                 }
-            }
-/*
+            }*/
+
+
         Stream.of(mCalendarProperties.getEventDays()).filter(eventDate ->
                 eventDate.getCalendar().equals(day)).findFirst().executeIfPresent(eventDay -> {
-            Log.d("AURON", "dayIcon:" + eventDay.getCalendar().getTime().toString());
             ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
 
-        // If a day doesn't belong to current month then image is transparent
-        if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
-            dayIcon.setAlpha(0.12f);
-        }
+            // If a day doesn't belong to current month then image is transparent
+            if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
+                dayIcon.getDrawable().setAlpha(40);
+            }
 
-    });
+        });
 
-*/
+
     }
 }

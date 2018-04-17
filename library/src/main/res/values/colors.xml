@@ -6,6 +6,7 @@
     <color name="disabledDialogButtonColor">#1F000000</color>
     <color name="itemHighlightColor">#1F000000</color>
     <color name="defaultColor">#2962FF</color>
-
     <color name="mc_divider_color">#FFF</color>
+    <color name="disabledDayColor">#616161</color>
+
 </resources>

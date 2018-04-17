@@ -15,11 +15,11 @@
 
     <ImageView
         android:id="@+id/dayIcon"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="@dimen/mc_day_icon_width"
+        android:layout_height="@dimen/mc_day_icon_height"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:scaleType="centerInside" />
+        android:scaleType="fitXY" />
 
     <View
         android:id="@+id/divider"

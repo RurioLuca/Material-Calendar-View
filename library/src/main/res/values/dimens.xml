@@ -2,5 +2,7 @@
 <resources>
     <dimen name="row_height">44dp</dimen>
     <dimen name="mc_height">1dp</dimen>
+    <dimen name="mc_day_icon_height">18dp</dimen>
+    <dimen name="mc_day_icon_width">18dp</dimen>
     <dimen name="mc_divider_margin_top">2dp</dimen>
 </resources>
