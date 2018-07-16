@@ -96,9 +96,11 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
 
         Button openRangePickerDialog = (Button) findViewById(R.id.openRangePickerDialogButton);
         openRangePickerDialog.setOnClickListener(v -> rangePicker.show());
+
     }
 
     private List<Calendar> getDisabledDays() {
+
         Calendar firstDisabled = DateUtils.getCalendar();
         firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
 
@@ -113,13 +115,16 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         calendars.add(secondDisabled);
         calendars.add(thirdDisabled);
         return calendars;
+
     }
 
     @Override
     public void onSelect(List<Calendar> calendars) {
+
         Stream.of(calendars).forEach(calendar ->
                 Toast.makeText(getApplicationContext(),
                         calendar.getTime().toString(),
                         Toast.LENGTH_SHORT).show());
+
     }
 }

@@ -4,6 +4,7 @@ import android.support.annotation.RestrictTo;
 
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Calendar;
  * Created by Mateusz Kornakiewicz on 23.05.2017.
  */
 
-public class EventDay {
+public class EventDay implements Serializable {
     private Calendar mDay;
     private int mImageResource;
     private boolean mIsDisabled;

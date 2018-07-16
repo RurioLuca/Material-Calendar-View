@@ -4,7 +4,7 @@ apply plugin: 'me.tatarka.retrolambda'
 ext {
     PUBLISH_GROUP_ID = 'com.applandeo'
     PUBLISH_ARTIFACT_ID = 'material-calendar-view'
-    PUBLISH_VERSION = '1.4.0'
+    PUBLISH_VERSION = '1.4.1'
 }
 
 android {
@@ -32,8 +32,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.0.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.annimon:stream:1.1.7'
     implementation 'com.github.bumptech.glide:glide:4.3.0'
 }

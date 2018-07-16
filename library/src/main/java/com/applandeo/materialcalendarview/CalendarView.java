@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -331,6 +330,7 @@ public class CalendarView extends LinearLayout {
 
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
         mCalendarPageAdapter.notifyDataSetChanged();
+
     }
 
     /**
@@ -339,6 +339,7 @@ public class CalendarView extends LinearLayout {
      * @param currentDate A date to which the calendar will be set
      */
     public void setDate(Date currentDate) throws OutOfDateRangeException {
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
 
@@ -353,19 +354,23 @@ public class CalendarView extends LinearLayout {
      * @see EventDay
      */
     public void setEvents(List<EventDay> eventDays) {
+
         if (mCalendarProperties.getCalendarType() == CLASSIC || mCalendarProperties.getCalendarType() == CLASSIC_ONE_DAY_PICKER) {
             mCalendarProperties.setEventDays(eventDays);
             mCalendarPageAdapter.notifyDataSetChanged();
         }
+
     }
 
     /**
      * @return List of Calendar object representing a selected dates
      */
     public List<Calendar> getSelectedDates() {
+
         return Stream.of(mCalendarPageAdapter.getSelectedDays())
                 .map(SelectedDay::getCalendar)
                 .sortBy(calendar -> calendar).toList();
+
     }
 
     /**
@@ -373,25 +378,36 @@ public class CalendarView extends LinearLayout {
      */
     @Deprecated
     public Calendar getSelectedDate() {
+
         return getFirstSelectedDate();
+
     }
 
     /**
      * @return Calendar object representing a selected date
      */
     public Calendar getFirstSelectedDate() {
+
         return Stream.of(mCalendarPageAdapter.getSelectedDays())
                 .map(SelectedDay::getCalendar).findFirst().get();
+
+    }
+
+    public void setSelectedDay(Calendar calendar) {
+        mCalendarPageAdapter.setSelectedDay(new SelectedDay(calendar));
+        mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     /**
      * @return Calendar object representing a date of current calendar page
      */
     public Calendar getCurrentPageDate() {
+
         Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.MONTH, mViewPager.getCurrentItem());
         return calendar;
+
     }
 
     /**

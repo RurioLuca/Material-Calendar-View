@@ -35,7 +35,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         Calendar calendarmio = Calendar.getInstance();
         calendarmio.setTime(new Date());
-        calendarmio.add(Calendar.DATE,2);
+        calendarmio.add(Calendar.DATE, 2);
         events.add(new EventDay(calendarmio, R.drawable.sample_icon_1));
 
         Calendar calendar1 = Calendar.getInstance();
@@ -71,6 +71,10 @@ public class CalendarActivity extends AppCompatActivity {
         setDateButton.setOnClickListener(v -> {
             try {
                 calendarView.setDate(getRandomCalendar());
+                Calendar calendarMy = Calendar.getInstance();
+                calendarMy.setTime(new Date());
+                calendarMy.set(Calendar.DAY_OF_MONTH, 15);
+                calendarView.setSelectedDay(calendarMy);
             } catch (OutOfDateRangeException exception) {
                 exception.printStackTrace();
 
